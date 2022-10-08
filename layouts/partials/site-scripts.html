@@ -1,0 +1,4 @@
+{{- $options := dict "targetPath" "js/bundle.js" -}}
+{{- $built := resources.Get "ts/main.ts" | js.Build $options | minify -}}
+
+<script src="{{ $built.RelPermalink }}" defer></script>

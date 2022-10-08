@@ -6,3 +6,6 @@ resources/*
 
 # Working notes
 TODO
+
+# JS environment
+node_modules/*
