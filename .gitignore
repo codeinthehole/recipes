@@ -1,0 +1,8 @@
+# Lock files
+*.lock
+
+# Temp files
+resources/*
+
+# Working notes
+TODO
