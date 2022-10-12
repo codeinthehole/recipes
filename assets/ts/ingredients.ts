@@ -217,6 +217,7 @@ function normaliseIngredient(ingredient: string): string {
     return normalised
 }
 
+// Format an ingredient object into a preparation ingredient string
 function formatIngredientObject(ingredientObj: Ingredient): string {
     // Other metric units
     const unitLabels: { [key in Unit]?: string; } = {
@@ -226,18 +227,40 @@ function formatIngredientObject(ingredientObj: Ingredient): string {
         [Unit.Tablespoon]: " tbsp", // Having a space before looks better
         [Unit.Teaspoon]: " tsp",
     };
-    let unitLabel;
     if (ingredientObj.unit in unitLabels) {
-        unitLabel = unitLabels[ingredientObj.unit];
-        return `${ingredientObj.quantity}${unitLabel} ${ingredientObj.name}`
+        const unitLabel = unitLabels[ingredientObj.unit];
+        const quantityLabel = numberToFraction(ingredientObj.quantity);
+        return `${quantityLabel}${unitLabel} ${ingredientObj.name}`
     }
 
-    // Hand pinch separately as it has no quantity.
+    // Handle pinch separately as it has no quantity.
     if (ingredientObj.unit == Unit.Pinch) {
         return `A pinch of ${ingredientObj.name}`
     }
 
     return ingredientObj.name
+}
+
+function numberToFraction(value: number) : string {
+    if (Math.floor(value) == value) {
+        // Value is an integer
+        return value.toString()
+    }
+    const numDecimalPlaces: number = value.toString().split(".")[1].length || 0;
+    let numerator = value * 10 ** numDecimalPlaces;
+    let denominator = 10 ** numDecimalPlaces; 
+
+    [numerator, denominator] = reduceFraction(numerator, denominator)
+
+    return `${numerator}/${denominator}`
+}
+
+function reduceFraction(numerator: number, denominator: number): [number, number] {
+    function commonDenominator(a: number, b: number) : number {
+        return b ? commonDenominator(b, a % b) : a;
+    }
+    const gcd = commonDenominator(numerator, denominator);
+    return [numerator/gcd, denominator/gcd];
 }
 
 export { 
@@ -246,5 +269,6 @@ export {
     compareIngredients, 
     parseMethodIngredient, 
     normaliseIngredient, 
-    formatIngredientObject 
+    formatIngredientObject,
+    numberToFraction 
 }

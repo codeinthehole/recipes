@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { Unit, consolidateIngredients, compareIngredients, parseMethodIngredient, normaliseIngredient, formatIngredientObject } from './ingredients';
+import { Unit, consolidateIngredients, compareIngredients, parseMethodIngredient, normaliseIngredient, formatIngredientObject, numberToFraction } from './ingredients';
 
 describe("normaliseIngredient", () => {
     it.each([
@@ -47,10 +47,23 @@ describe("formatIngredientObject", () => {
         [{name: "eggs", quantity: 6, unit: Unit.Item}, "6x eggs"],
         [{name: "lemon", quantity: 1, unit: Unit.Item}, "1x lemon"],
         [{name: "ground cinnamon", quantity: 1, unit: Unit.Pinch}, "A pinch of ground cinnamon"],
+        [{name: "ground cumin", quantity: 0.5, unit: Unit.Teaspoon}, "1/2 tsp ground cumin"],
     ])('parses %p', (ingredientObj, formatted) => {
         expect(
             formatIngredientObject(ingredientObj)
         ).toEqual(formatted)
+    });
+})
+
+describe("numberToFraction", () => {
+    it.each([
+        [1, "1"],
+        [2, "2"],
+        [0.5, "1/2"],
+    ])('converts %p to %p', (num: number, fraction: string) => {
+        expect(
+            numberToFraction(num)
+        ).toEqual(fraction)
     });
 })
 
@@ -135,7 +148,7 @@ describe("consolidateIngredients", () => {
             consolidateIngredients(methodIngredients)
         ).toEqual([
             "500g plain flour",
-            "0.5 tsp salt",
+            "1/2 tsp salt",
         ])
     });
     it('sorts ingredients by approx size (bigger list)', () => {
