@@ -81,6 +81,24 @@ describe("compareIngredients", () => {
 
         expect(compareIngredients(a, b)).toEqual(A_BEFORE_B)
     });
+    it('250g comes before 1 item', () => {
+        const a = {name: "A", quantity: 250, unit: Unit.Grams}
+        const b = {name: "B", quantity: 1, unit: Unit.Item}
+
+        expect(compareIngredients(a, b)).toEqual(A_BEFORE_B)
+    });
+    it('1.5l comes before 1 item', () => {
+        const a = {name: "A", quantity: 1.5, unit: Unit.Litres}
+        const b = {name: "B", quantity: 1, unit: Unit.Item}
+
+        expect(compareIngredients(a, b)).toEqual(A_BEFORE_B)
+    });
+    it('1.5l comes before 1 item', () => {
+        const a = {name: "A", quantity: 1.5, unit: Unit.Litres}
+        const b = {name: "B", quantity: 1, unit: Unit.Item}
+
+        expect(compareIngredients(a, b)).toEqual(A_BEFORE_B)
+    });
 })
 
 describe("consolidateIngredients", () => {
@@ -129,9 +147,9 @@ describe("consolidateIngredients", () => {
         expect(
             consolidateIngredients(methodIngredients)
         ).toEqual([
+            "250g lentils",
             "1x onion",
             "1x paneer",
-            "250g lentils",
             "2 tsp cumin seeds",
         ])
     });
