@@ -1,10 +1,10 @@
 import u from 'umbrellajs'
 import { consolidateIngredients } from './ingredients'
 
-// Render an ingredients section in the page.
+// Entry-point for binding JS behaviour.
+//
+// All DOM interaction takes place in this function.
 function main(): void {
-    // All DOM interaction takes place in this function.
-    //
     // Extract an array of method ingredient strings, which are assumed to be
     // in <li> elements within the article.
     const methodIngredientStrings: string[] = []

@@ -1,3 +1,4 @@
+// Types
 enum Unit {
     Item = "ITEM",
     Grams = "GRAMS",
@@ -15,7 +16,7 @@ interface Ingredient {
 
 
 // Sort function that puts larger ingredients first.
-function compareIngredients(a: Ingredient, b: Ingredient): number {
+function compareIngredients(a: Ingredient, b: Ingredient): -1|0|1 {
     // If same unit, compare quantities directly.
     if (a.unit == b.unit) {
         if (a.quantity > b.quantity) {
@@ -28,7 +29,13 @@ function compareIngredients(a: Ingredient, b: Ingredient): number {
     }
 
     // Use an approx unit order
-    const units: string[] = ["ITEM", "GRAMS", "LITRES", "TABLESPOON", "TEASPOON"]
+    const units: string[] = [
+        Unit.Item,
+        Unit.Grams,
+        Unit.Litres,
+        Unit.Tablespoon,
+        Unit.Teaspoon,
+    ]
     const aIndex: number = units.indexOf(a.unit)
     const bIndex: number = units.indexOf(b.unit)
     if (aIndex == -1 || bIndex == -1) {
