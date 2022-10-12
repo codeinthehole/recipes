@@ -43,11 +43,12 @@ function compareIngredients(a: Ingredient, b: Ingredient): SortFlag {
 
     // Use an approx unit order
     const units: string[] = [
-        Unit.Item,
         Unit.Grams,
         Unit.Litres,
+        Unit.Item,
         Unit.Tablespoon,
         Unit.Teaspoon,
+        Unit.Pinch,
     ]
     const aIndex: number = units.indexOf(a.unit)
     const bIndex: number = units.indexOf(b.unit)
