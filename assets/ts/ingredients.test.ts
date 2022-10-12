@@ -2,7 +2,16 @@
  * @jest-environment jsdom
  */
 
-import { Unit, consolidateIngredients, compareIngredients, parseMethodIngredient, normaliseIngredient, formatIngredientObject, numberToFraction } from './ingredients';
+import { 
+    Unit, 
+    consolidateIngredients, 
+    compareIngredients, 
+    parseMethodIngredient, 
+    normaliseIngredient, 
+    formatIngredientObject, 
+    numberToFraction,
+    titleCase
+} from './ingredients';
 
 describe("normaliseIngredient", () => {
     it.each([
@@ -46,8 +55,8 @@ describe("formatIngredientObject", () => {
     it.each([
         [{name: "eggs", quantity: 6, unit: Unit.Item}, "6x eggs"],
         [{name: "lemon", quantity: 1, unit: Unit.Item}, "1x lemon"],
-        [{name: "ground cinnamon", quantity: 1, unit: Unit.Pinch}, "A pinch of ground cinnamon"],
-        [{name: "ground cumin", quantity: 0.5, unit: Unit.Teaspoon}, "1/2 tsp ground cumin"],
+        [{name: "ground cinnamon", quantity: 1, unit: Unit.Pinch}, "Ground cinnamon"],
+        [{name: "ground cumin", quantity: 0.5, unit: Unit.Teaspoon}, "Ground cumin"],
     ])('parses %p', (ingredientObj, formatted) => {
         expect(
             formatIngredientObject(ingredientObj)
@@ -115,6 +124,14 @@ describe("compareIngredients", () => {
     });
 })
 
+describe("titleCase", () => {
+    it.each([
+        ["cumin", "Cumin"],
+    ])('converts %p to %p', (before: string, after: string) => {
+        expect(titleCase(before)).toEqual(after)
+    });
+})
+
 describe("consolidateIngredients", () => {
     it('works on single ingredient', () => {
         const methodIngredients = [
@@ -148,7 +165,7 @@ describe("consolidateIngredients", () => {
             consolidateIngredients(methodIngredients)
         ).toEqual([
             "500g plain flour",
-            "1/2 tsp salt",
+            "Salt",
         ])
     });
     it('sorts ingredients by approx size (bigger list)', () => {
@@ -164,7 +181,7 @@ describe("consolidateIngredients", () => {
             "250g lentils",
             "1x onion",
             "1x paneer",
-            "2 tsp cumin seeds",
+            "Cumin seeds",
         ])
     });
 })
