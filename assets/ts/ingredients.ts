@@ -133,10 +133,13 @@ function parseMethodIngredient(item: string): Ingredient {
     }
 
     // Check for "1.25l stock" form.
-    match = normalised.match(/^([\d.]+)l (.*)/)
+    match = normalised.match(/^([\d.]+)\s*(m?l) (.*)/)
     if (match) {
         quantity = parseFloat(match[1])
-        name = match[2]
+        if (match[2] == "ml") {
+            quantity /= 1000
+        }
+        name = match[3]
         unit = Unit.Litres
     }
 
