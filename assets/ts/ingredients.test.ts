@@ -34,6 +34,7 @@ describe("parseMethodIngredient", () => {
         ["1 block of paneer, cubed", {name: "paneer", quantity: 1, unit: "ITEM"}],
         ["10-15 curry leaves, crushed", {name: "curry leaves", quantity: 15, unit: "ITEM"}],
         ["250g of lentils (green, red or black)", {name: "lentils (green, red or black)", quantity: 250, unit: "GRAMS"}],
+        ["80ml milk", {name: "milk", quantity: 0.08, unit: "LITRES"}],
     ])('parses %p', (raw, parsed) => {
         expect(
             parseMethodIngredient(raw)
