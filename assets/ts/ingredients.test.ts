@@ -29,7 +29,7 @@ describe("parseMethodIngredient", () => {
         ["1 tsp of garam masala", {name: "garam masala", quantity: 1, unit: "TEASPOON"}],
         ["1/2 tbsp cayenne pepper", {name: "cayenne pepper", quantity: 0.5, unit: "TABLESPOON"}],
         ["1/4 tsp cayenne pepper", {name: "cayenne pepper", quantity: 0.25, unit: "TEASPOON"}],
-        ["Pinch ground cinnamon", {name: "ground cinnamon", quantity: 1, unit: "ITEM"}],
+        ["Pinch ground cinnamon", {name: "ground cinnamon", quantity: 1, unit: "PINCH"}],
         ["A few black cardomon pods", {name: "black cardomon pods", quantity: 3, unit: "ITEM"}],
         ["1 block of paneer, cubed", {name: "paneer", quantity: 1, unit: "ITEM"}],
         ["10-15 curry leaves, crushed", {name: "curry leaves", quantity: 15, unit: "ITEM"}],
@@ -45,6 +45,7 @@ describe("formatIngredientObject", () => {
     it.each([
         [{name: "eggs", quantity: 6, unit: Unit.Item}, "6x eggs"],
         [{name: "lemon", quantity: 1, unit: Unit.Item}, "1x lemon"],
+        [{name: "ground cinnamon", quantity: 1, unit: Unit.Pinch}, "A pinch of ground cinnamon"],
     ])('parses %p', (ingredientObj, formatted) => {
         expect(
             formatIngredientObject(ingredientObj)
@@ -52,24 +53,33 @@ describe("formatIngredientObject", () => {
     });
 })
 
+const A_BEFORE_B = -1
+const B_BEFORE_A = 1
+
 describe("compareIngredients", () => {
     it('500g comes before 1/2 tsp', () => {
         const a = {name: "A", quantity: 0.5, unit: Unit.Teaspoon}
         const b = {name: "B", quantity: 500, unit: Unit.Grams}
 
-        expect(compareIngredients(a, b)).toEqual(1)
+        expect(compareIngredients(a, b)).toEqual(B_BEFORE_A)
     });
     it('1 tbsp comes before 2 tsp', () => {
         const a = {name: "A", quantity: 1, unit: Unit.Tablespoon}
         const b = {name: "B", quantity: 2, unit: Unit.Teaspoon}
 
-        expect(compareIngredients(a, b)).toEqual(-1)
+        expect(compareIngredients(a, b)).toEqual(A_BEFORE_B)
     });
     it('1 item comes before 2 tsp', () => {
         const a = {name: "A", quantity: 1, unit: Unit.Item}
         const b = {name: "B", quantity: 2, unit: Unit.Teaspoon}
 
-        expect(compareIngredients(a, b)).toEqual(-1)
+        expect(compareIngredients(a, b)).toEqual(A_BEFORE_B)
+    });
+    it('1 item comes before 2 items', () => {
+        const a = {name: "A", quantity: 1, unit: Unit.Item}
+        const b = {name: "B", quantity: 2, unit: Unit.Item}
+
+        expect(compareIngredients(a, b)).toEqual(A_BEFORE_B)
     });
 })
 
@@ -93,8 +103,8 @@ describe("consolidateIngredients", () => {
         expect(
             consolidateIngredients(methodIngredients)
         ).toEqual([
-            "9x eggs",
-            "1x lemon"
+            "1x lemon",
+            "9x eggs"
         ])
     });
     it('sorts ingredients by approx size', () => {
