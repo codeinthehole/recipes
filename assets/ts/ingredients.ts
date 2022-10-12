@@ -224,21 +224,21 @@ function formatIngredientObject(ingredientObj: Ingredient): string {
         [Unit.Item]: "x",
         [Unit.Grams]: "g",
         [Unit.Litres]: "l",
-        [Unit.Tablespoon]: " tbsp", // Having a space before looks better
-        [Unit.Teaspoon]: " tsp",
     };
     if (ingredientObj.unit in unitLabels) {
         const unitLabel = unitLabels[ingredientObj.unit];
-        const quantityLabel = numberToFraction(ingredientObj.quantity);
+        const quantityLabel = ingredientObj.quantity;
         return `${quantityLabel}${unitLabel} ${ingredientObj.name}`
     }
 
-    // Handle pinch separately as it has no quantity.
-    if (ingredientObj.unit == Unit.Pinch) {
-        return `A pinch of ${ingredientObj.name}`
-    }
+    return titleCase(ingredientObj.name)
+}
 
-    return ingredientObj.name
+function titleCase(value: string) : string {
+    if (value.length == 0) {
+        return value
+    }
+    return value.charAt(0).toUpperCase() + value.slice(1)
 }
 
 function numberToFraction(value: number) : string {
@@ -270,5 +270,6 @@ export {
     parseMethodIngredient, 
     normaliseIngredient, 
     formatIngredientObject,
-    numberToFraction 
+    numberToFraction,
+    titleCase
 }
