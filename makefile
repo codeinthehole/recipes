@@ -6,13 +6,16 @@ tree:
 
 # JS targets
 
-test:
-	npm test
-
 install:
 	npm install
 
-lint:
+test:
+	npm test
+
+typecheck:
 	npm run typecheck 
 
-check: test lint
+lint:
+	npm run lint 
+
+check: test lint typecheck
