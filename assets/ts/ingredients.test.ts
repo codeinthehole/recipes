@@ -54,20 +54,20 @@ describe("formatIngredientObject", () => {
 
 describe("compareIngredients", () => {
     it('500g comes before 1/2 tsp', () => {
-        let a = {name: "A", quantity: 0.5, unit: Unit.Teaspoon}
-        let b = {name: "B", quantity: 500, unit: Unit.Grams}
+        const a = {name: "A", quantity: 0.5, unit: Unit.Teaspoon}
+        const b = {name: "B", quantity: 500, unit: Unit.Grams}
 
         expect(compareIngredients(a, b)).toEqual(1)
     });
     it('1 tbsp comes before 2 tsp', () => {
-        let a = {name: "A", quantity: 1, unit: Unit.Tablespoon}
-        let b = {name: "B", quantity: 2, unit: Unit.Teaspoon}
+        const a = {name: "A", quantity: 1, unit: Unit.Tablespoon}
+        const b = {name: "B", quantity: 2, unit: Unit.Teaspoon}
 
         expect(compareIngredients(a, b)).toEqual(-1)
     });
     it('1 item comes before 2 tsp', () => {
-        let a = {name: "A", quantity: 1, unit: Unit.Item}
-        let b = {name: "B", quantity: 2, unit: Unit.Teaspoon}
+        const a = {name: "A", quantity: 1, unit: Unit.Item}
+        const b = {name: "B", quantity: 2, unit: Unit.Teaspoon}
 
         expect(compareIngredients(a, b)).toEqual(-1)
     });
@@ -75,7 +75,7 @@ describe("compareIngredients", () => {
 
 describe("consolidateIngredients", () => {
     it('works on single ingredient', () => {
-        var methodIngredients = [
+        const methodIngredients = [
             "6x eggs, chopped"
         ]
         expect(
@@ -85,7 +85,7 @@ describe("consolidateIngredients", () => {
         ])
     });
     it('works on same ingredient reference multiple times', () => {
-        var methodIngredients = [
+        const methodIngredients = [
             "6x eggs, chopped",
             "1 lemon",
             "3x eggs, whole"
@@ -98,7 +98,7 @@ describe("consolidateIngredients", () => {
         ])
     });
     it('sorts ingredients by approx size', () => {
-        var methodIngredients = [
+        const methodIngredients = [
             "1/2 tsp salt",
             "500g plain flour",
         ]
@@ -110,7 +110,7 @@ describe("consolidateIngredients", () => {
         ])
     });
     it('sorts ingredients by approx size (bigger list)', () => {
-        var methodIngredients = [
+        const methodIngredients = [
             "250g lentils",
             "2 tsp cumin seeds",
             "1 onion",

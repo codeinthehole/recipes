@@ -28,9 +28,9 @@ function compareIngredients(a: Ingredient, b: Ingredient): number {
     }
 
     // Use an approx unit order
-    let units: string[] = ["ITEM", "GRAMS", "LITRES", "TABLESPOON", "TEASPOON"]
-    let aIndex: number = units.indexOf(a.unit)
-    let bIndex: number = units.indexOf(b.unit)
+    const units: string[] = ["ITEM", "GRAMS", "LITRES", "TABLESPOON", "TEASPOON"]
+    const aIndex: number = units.indexOf(a.unit)
+    const bIndex: number = units.indexOf(b.unit)
     if (aIndex == -1 || bIndex == -1) {
         // If we can't find the unit, we don't change the order.
         return 0 
@@ -52,37 +52,37 @@ function compareIngredients(a: Ingredient, b: Ingredient): number {
 function consolidateIngredients(methodIngredientStrings: string[]): string[] {
     // Parse the method-ingredient strings into objects so we can
     // combine items, and sort by their approx size.
-    let methodIngredientObjects: Ingredient[] = []
-    methodIngredientStrings.forEach(function(item: string, index: number): void {
+    const methodIngredientObjects: Ingredient[] = []
+    methodIngredientStrings.forEach(function(item: string): void {
         methodIngredientObjects.push(parseMethodIngredient(item))
     })
 
     // Combine quantities of ingredients. 
-    let prepIngredientMap: { [key: string]: Ingredient; } = {};
-    methodIngredientObjects.forEach(function(item: Ingredient, index: number): void {
+    const prepIngredientMap: { [key: string]: Ingredient; } = {};
+    methodIngredientObjects.forEach(function(item: Ingredient): void {
         if (item.name in prepIngredientMap && item.unit == prepIngredientMap[item.name].unit) {
             prepIngredientMap[item.name].quantity += item.quantity
         } else {
             prepIngredientMap[item.name] = item
         }
     })
-    let prepIngredientObjects: Ingredient[] = Object.values(prepIngredientMap)
+    const prepIngredientObjects: Ingredient[] = Object.values(prepIngredientMap)
 
     // Sort array of ingredients by approx size.
     prepIngredientObjects.sort(compareIngredients)
 
     // Convert the ingredient objects back to an array of strings.
-    let prepIngredientStrings: string[] = []
-    prepIngredientObjects.forEach(function(item: Ingredient, index: number): void {
+    const prepIngredientStrings: string[] = []
+    prepIngredientObjects.forEach(function(item: Ingredient): void {
         prepIngredientStrings.push(formatIngredientObject(item))
     })
     return prepIngredientStrings
 }
 
 function parseMethodIngredient(item: string): Ingredient {
-    let normalised: string = normaliseIngredient(item)
+    const normalised: string = normaliseIngredient(item)
     let match: string[];
-    let name: string = "", quantity: number = 1;
+    let name = "", quantity = 1;
     let unit: Unit = Unit.Item;
 
     // Check for "6x sausages" form.
@@ -167,14 +167,14 @@ function parseMethodIngredient(item: string): Ingredient {
 
 // Strip method instructions from ingredient string.
 function normaliseIngredient(ingredient: string): string {
-    let normalised: string = ""
+    let normalised = ""
 
     // Look for section wrapped in parens.
-    let match = ingredient.match(/\(.*?\)/) 
+    const match = ingredient.match(/\(.*?\)/) 
     if (match) {
         // String contains parens.
-        let noParens: string = ingredient.replace(/\(.*?\)/, "XX")
-        let segments: string[] = noParens.split(",")
+        const noParens: string = ingredient.replace(/\(.*?\)/, "XX")
+        const segments: string[] = noParens.split(",")
         if (segments.length > 1) {
             normalised = segments.slice(0, -1).join(",").replace("XX", match[0])
         } else {
@@ -182,7 +182,7 @@ function normaliseIngredient(ingredient: string): string {
         }
     } else {
         // String doesn't contain parens.
-        let segments: string[] = ingredient.split(",")
+        const segments: string[] = ingredient.split(",")
         if (segments.length > 1) {
             normalised = segments.slice(0, -1).join(",")
         } else {
@@ -194,7 +194,7 @@ function normaliseIngredient(ingredient: string): string {
 
 function formatIngredientObject(ingredientObj: Ingredient): string {
     // Other metric units
-    let unitLabels: { [key in Unit]?: string; } = {
+    const unitLabels: { [key in Unit]?: string; } = {
         [Unit.Item]: "x",
         [Unit.Grams]: "g",
         [Unit.Litres]: "l",
