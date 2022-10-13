@@ -1,0 +1,30 @@
+{{ define "title" }}
+    {{ .Title }}
+{{ end }}
+
+{{ define "description" }}
+    {{ .Summary  }} ...
+{{ end }}
+
+{{ define "main" }}
+    <article>
+        <header id="post-header">
+            <h1>{{ .Title | markdownify }}</h1>
+        </header>
+        {{- .Content -}}
+    </article>
+{{ end }}
+
+{{ define "footer" }}
+    <footer id="footer">
+        Footer content here.
+    </footer>
+{{ end }}
+
+{{ define "scripts" }}
+    {{/* Compile typescript into minified asset. */}}
+    {{- $options := dict "targetPath" "js/bundle.js" -}}
+    {{- $built := resources.Get "ts/main.ts" | js.Build $options | minify -}}
+    <script src="{{ $built.RelPermalink }}" defer></script>
+{{ end }}
+

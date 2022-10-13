@@ -8,7 +8,7 @@ function main(): void {
     // Extract an array of method ingredient strings, which are assumed to be
     // in <li> elements within the article.
     const methodIngredientStrings: string[] = []
-    u('article div.f4 li').each(function(node: HTMLElement): void {
+    u('article ul li').each(function(node: HTMLElement): void {
         methodIngredientStrings.push(node.innerHTML)
     })
 
@@ -19,7 +19,7 @@ function main(): void {
     );
 
     // Append list to page.
-    const articleEle = u('article div.f4')
+    const articleEle = u('article')
     articleEle.append(u("<h2>Ingredients!</h2>"))
     articleEle.append(prepIngredientsList)
 }
