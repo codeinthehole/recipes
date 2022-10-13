@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta name="description" content="{{ block "description" . }}{{ end }}">
+
+        {{ printf `<link rel="shortcut icon" href="%s">` ("favicon.ico" | absURL) | safeHTML }}
+
+        {{ $style := resources.Get "css/main.scss" | resources.ToCSS | resources.Minify }}
+        <link rel="stylesheet" href="{{ $style.Permalink }}">
+
+        {{ block "head" . }}{{ end }}
+
+        <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
+
+    </head>
+
+    <body>
+        {{ block "header" . }}
+            <header id="banner">
+                <h2><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></h2>
+            </header>
+        {{ end }}
+
+        <main id="content">
+            {{ block "main" . }}{{ end }}
+        </main>
+
+        {{ block "footer" . }}{{ end }}
+
+        {{ block "scripts" . }}{{ end }}
+    </body>
+</html>

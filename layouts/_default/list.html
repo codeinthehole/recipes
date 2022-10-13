@@ -1,0 +1,11 @@
+{{ define "title" }}
+    {{ .Title }} — Today I Learnt — David Winterbottom
+{{ end }}
+
+{{ define "main" }}
+    <h1>{{ .Title }}</h1>
+
+    {{ .Content }}
+
+    {{ partial "posts.html" .Pages }}
+{{ end }}
