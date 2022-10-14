@@ -7,9 +7,6 @@
 
         {{ printf `<link rel="shortcut icon" href="%s">` ("favicon.ico" | absURL) | safeHTML }}
 
-        {{ $style := resources.Get "css/main.scss" | resources.ToCSS | resources.Minify }}
-        <link rel="stylesheet" href="{{ $style.Permalink }}">
-
         {{ $css := resources.Get "css/main.tailwind.css" }}
         {{ $tailwind_style := $css | postCSS }}
         <link rel="stylesheet" href="{{ $tailwind_style.RelPermalink }}">
