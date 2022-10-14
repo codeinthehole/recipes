@@ -1,0 +1,30 @@
+{{ define "title" }}
+    Recipes — David Winterbottom
+{{ end }}
+
+{{ define "header" }}
+    <header id="banner-home">
+        <h1>{{ .Site.Title }}</h1>
+    </header>
+{{ end }}
+
+{{ define "description" }}
+    Recipes
+{{ end }}
+
+{{ define "main" }}
+
+    <p>This is my collection of recipes.</p>
+
+    <p>Contents:</p>
+    {{ $posts := site.RegularPages }}
+    {{ partial "posts.html" (first 20 $posts) }}
+
+{{ end }}
+
+{{ define "footer" }}
+    <footer id="footer">
+        This is a <a href="https://gohugo.io/">Hugo</a>-generated static site, hosted using <a href="https://pages.github.com/">Github Pages</a>.<br/>
+        Source code available at: <a href="https://github.com/codeinthehole/recipes/">https://github.com/codeinthehole/recipes/</a>
+    </footer>
+{{ end }}

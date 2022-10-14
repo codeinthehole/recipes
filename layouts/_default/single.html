@@ -1,0 +1,32 @@
+{{ define "title" }}
+    {{ .Title }} — David Winterbottom
+{{ end }}
+
+{{ define "description" }}
+    {{ .Summary  }} ...
+{{ end }}
+
+{{ define "main" }}
+    <article>
+        <header id="post-header">
+            <h1>{{ .Title | markdownify }}</h1>
+        </header>
+
+        {{- .Content -}}
+
+    </article>
+{{ end }}
+
+{{ define "footer" }}
+    <footer id="footer">
+        Footer content hee.
+    </footer>
+{{ end }}
+
+{{ define "scripts" }}
+    {{- $options := dict "targetPath" "js/bundle.js" -}}
+    {{- $built := resources.Get "ts/main.ts" | js.Build $options | minify -}}
+
+    <script src="{{ $built.RelPermalink }}" defer></script>
+{{ end }}
+
