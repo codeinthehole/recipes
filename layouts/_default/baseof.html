@@ -10,8 +10,9 @@
         {{ $style := resources.Get "css/main.scss" | resources.ToCSS | resources.Minify }}
         <link rel="stylesheet" href="{{ $style.Permalink }}">
 
-        {{ $tailwind_style := resources.Get "css/style.css" }}
-        <link rel="stylesheet" href="{{ $tailwind_style.Permalink }}">
+        {{ $css := resources.Get "css/main.tailwind.css" }}
+        {{ $tailwind_style := $css | postCSS }}
+        <link rel="stylesheet" href="{{ $tailwind_style.RelPermalink }}">
 
         {{ block "head" . }}{{ end }}
 
