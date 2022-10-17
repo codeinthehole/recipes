@@ -1,0 +1,15 @@
+header#banner-home {
+    h1 {
+        @apply text-4xl mb-4;
+    }
+}
+
+main#content {
+    ul#posts {
+        @apply pl-2;
+        li {
+            @apply list-disc list-inside text-slate-600;
+        }
+    }
+}
+

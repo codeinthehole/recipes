@@ -1,0 +1,32 @@
+main {
+    /* Structure is:
+     *
+     *   <article>
+     *     <header id=#post-header><h1>
+     *     <p>
+     *     <h2>
+     *     <p>
+     *     <ul>
+     *     ...
+     */
+    article {
+
+        header#post-header {
+            h1 {
+                @apply font-serif text-3xl text-red-800 font-sans font-bold;
+            }
+        }
+
+        h2 {
+            @apply text-teal-700 text-lg mt-2 p-0.5 font-sans font-bold;
+        }
+
+        ul {
+            @apply pl-2;
+            li {
+                @apply list-disc list-inside text-slate-600;
+            }
+        }
+    }
+}
+

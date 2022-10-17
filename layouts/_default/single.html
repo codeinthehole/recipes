@@ -6,9 +6,13 @@
     {{ .Summary  }} ...
 {{ end }}
 
+{{ define "header" }}
+    <!-- Empty --> 
+{{ end }}
+
 {{ define "main" }}
     <article>
-        <header id="post-header" class="bg-gray-900">
+        <header id="post-header">
             <h1>{{ .Title | markdownify }}</h1>
         </header>
         {{- .Content -}}
@@ -17,7 +21,7 @@
 
 {{ define "footer" }}
     <footer id="footer">
-        Footer content here.
+        Recipes optimised by and for <a href="https://codeinthehole.com">David Winterbottom</a>
     </footer>
 {{ end }}
 

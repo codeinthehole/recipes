@@ -14,10 +14,7 @@
 
 {{ define "main" }}
 
-    <p class="text-3xl bg-sky-600">This is my collection of recipes.</p>
-    <p class="bg-gray-900">This is my collection of recipes.</p>
-
-    <p class="flex max-w-sm">Contents:</p>
+    <p>Contents:</p>
     {{ $posts := site.RegularPages }}
     {{ partial "posts.html" (first 20 $posts) }}
 
@@ -25,7 +22,7 @@
 
 {{ define "footer" }}
     <footer id="footer">
-        This is a <a href="https://gohugo.io/">Hugo</a>-generated static site, hosted using <a href="https://pages.github.com/">Github Pages</a>.<br/>
+        This is a <a href="https://gohugo.io/">Hugo</a>-generated static site, hosted using <a href="https://pages.github.com/">Github Pages</a>.
         Source code available at: <a href="https://github.com/codeinthehole/recipes/">https://github.com/codeinthehole/recipes/</a>
     </footer>
 {{ end }}
