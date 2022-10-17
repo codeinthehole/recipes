@@ -15,8 +15,9 @@
 {{ define "main" }}
 
     <p class="text-3xl bg-sky-600">This is my collection of recipes.</p>
+    <p class="bg-gray-900">This is my collection of recipes.</p>
 
-    <p>Contents:</p>
+    <p class="flex max-w-sm">Contents:</p>
     {{ $posts := site.RegularPages }}
     {{ partial "posts.html" (first 20 $posts) }}
 

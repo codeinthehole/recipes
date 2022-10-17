@@ -1,6 +1,5 @@
 {
   "name": "recipes-behaviour",
-  "type": "module",
   "version": "1.0.0",
   "description": "Page behaviour for recipes site.",
   "author": "David Winterbottom",
